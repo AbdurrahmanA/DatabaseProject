@@ -13,8 +13,8 @@ namespace VeritabanıProje.Formlar
             InitializeComponent();
         }
 
-        string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
-        string query = "SELECT urunid, urunadi, kategori, miktar, depolamakosullari, ekimtarihi, hasattarihi, stokmiktari FROM depodakiurun";
+        string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=proje;";
+        string query = "SELECT depoid, urunid, ekim_tarih, stokmiktar, hasat_tarih, kullaniciid FROM depodakiurun";
 
         private void FarmerForm_Load(object sender, EventArgs e)
         {
@@ -55,7 +55,7 @@ namespace VeritabanıProje.Formlar
             if (CurrentFarmer.CiftciID.HasValue)
             {
                 // Nullable değer kesinlikle null değilse, 'Value' özelliği ile erişilebilir.
-                FarmersPage productSale = new FarmersPage(CurrentFarmer.CiftciID.Value, CurrentFarmer.KullanıcıID);
+                FarmersPage productSale = new FarmersPage(CurrentFarmer.KullanıcıID);
                 this.Hide();
                 productSale.ShowDialog();
             }

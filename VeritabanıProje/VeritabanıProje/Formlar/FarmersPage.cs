@@ -8,14 +8,14 @@ namespace VeritabanıProje.Formlar
 {
     public partial class FarmersPage : Form
     {
-        private int ciftciID;
+
         private int KullanıcıID;
         private int hiddenSelectedUrunID = 0;
         private int hiddenSelectedSatistakiUrunID = 0;
-        public FarmersPage(int ciftciID,int KullanıcıID)
+        public FarmersPage(int KullanıcıID)
         {
             InitializeComponent();
-            this.ciftciID = ciftciID;
+            
             this.KullanıcıID = KullanıcıID;
             ListeleUrunler();
             ListeleSatistakiUrunler();
@@ -23,12 +23,12 @@ namespace VeritabanıProje.Formlar
 
         }
 
-        string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
+        string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=proje;";
 
         private void ListeleUrunler()
         {
-            string query = "SELECT urunid, urunadi, kategori, miktar, depolamakosullari, ekimtarihi, hasattarihi, stokmiktari " +
-                           "FROM depodakiurun WHERE ciftciid = @CiftciID";
+            string query = "SELECT depoid, urunid, ekim_tarih, stokmiktar, hasat_tarih, kullaniciid " +
+                           "FROM depodakiurun WHERE KullanıcıID = @KullanıcıID";
 
             using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
             {
@@ -36,7 +36,7 @@ namespace VeritabanıProje.Formlar
                 {
                     connection.Open();
                     NpgsqlCommand command = new NpgsqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@CiftciID", ciftciID);
+                    command.Parameters.AddWithValue("@KullanıcıID", KullanıcıID);
 
                     NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command);
                     DataTable dataTable = new DataTable();
@@ -52,7 +52,7 @@ namespace VeritabanıProje.Formlar
         }
         private void ListeleSatistakiUrunler()
         {
-            string query = "SELECT urunid, urunadi, miktar, birimfiyati, depolamakosullari FROM satistakiurun WHERE ciftciid = @CiftciID";
+            string query = "SELECT satisid,urunid,birimfiyat,toplamfiyat,satistarih,miktar,kullaniciid, FROM satistakiurun WHERE KullanıcıID = @KullanıcıID";
 
             using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
             {
@@ -60,7 +60,7 @@ namespace VeritabanıProje.Formlar
                 {
                     connection.Open();
                     NpgsqlCommand command = new NpgsqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@CiftciID", ciftciID);
+                    command.Parameters.AddWithValue("@KullanıcıID", KullanıcıID);
 
                     NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command);
                     DataTable dataTable = new DataTable();
@@ -120,7 +120,7 @@ namespace VeritabanıProje.Formlar
 
                     NpgsqlCommand command = new NpgsqlCommand(deleteQuery, connection);
                     command.Parameters.AddWithValue("@UrunID", urunID);
-                    command.Parameters.AddWithValue("@CiftciID", ciftciID);
+                    command.Parameters.AddWithValue("@KullanıcıID", KullanıcıID);
 
                     int rowsAffected = command.ExecuteNonQuery();
 
@@ -201,7 +201,7 @@ namespace VeritabanıProje.Formlar
                     using (NpgsqlCommand command = new NpgsqlCommand("CALL satis_ekle(@UrunID, @CiftciID, @Miktar, @BirimFiyati, @DepolamaKosullari)", connection))
                     {
                         command.Parameters.AddWithValue("@UrunID", hiddenSelectedUrunID);
-                        command.Parameters.AddWithValue("@CiftciID", ciftciID);
+                        command.Parameters.AddWithValue("@KullanıcıID", KullanıcıID);
                         command.Parameters.AddWithValue("@Miktar", satilacakMiktar);
                         command.Parameters.AddWithValue("@BirimFiyati", birimFiyati);
                         command.Parameters.AddWithValue("@DepolamaKosullari", depolamaKosullari);
@@ -241,7 +241,7 @@ namespace VeritabanıProje.Formlar
                         using (NpgsqlCommand deleteCommand = new NpgsqlCommand(deleteSatistakiUrunQuery, connection))
                         {
                             deleteCommand.Parameters.AddWithValue("@UrunID", hiddenSelectedSatistakiUrunID);
-                            deleteCommand.Parameters.AddWithValue("@CiftciID", ciftciID);
+                            deleteCommand.Parameters.AddWithValue("@KullanıcıID", KullanıcıID);
 
                             int rowsAffected = deleteCommand.ExecuteNonQuery();
 
@@ -298,7 +298,7 @@ namespace VeritabanıProje.Formlar
                     connection.Open();
 
                     NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection);
-                    command.Parameters.AddWithValue("@CiftciID", ciftciID);
+                    command.Parameters.AddWithValue("@KullanıcıID", KullanıcıID);
                     command.Parameters.AddWithValue("@UrunAdi", urunAdi);
                     command.Parameters.AddWithValue("@Kategori", kategori);
                     command.Parameters.AddWithValue("@Miktar", miktar);
@@ -377,7 +377,7 @@ namespace VeritabanıProje.Formlar
                     command.Parameters.AddWithValue("@EkimTarihi", ekimTarihi);
                     command.Parameters.AddWithValue("@HasatTarihi", hasatTarihi);
                     command.Parameters.AddWithValue("@UrunID", hiddenSelectedUrunID);
-                    command.Parameters.AddWithValue("@CiftciID", ciftciID);
+                    command.Parameters.AddWithValue("@KullanıcıID", KullanıcıID);
 
                     int rowsAffected = command.ExecuteNonQuery();
 

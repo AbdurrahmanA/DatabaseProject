@@ -8,7 +8,7 @@ namespace VeritabanıProje
 {
     public partial class UserLogIn : Form
     {
-        string connectionString = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
+        string connectionString = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=proje;";
 
         public UserLogIn()
         {
@@ -76,7 +76,7 @@ namespace VeritabanıProje
 
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
-                string query = "SELECT ciftciid FROM public.ciftci WHERE kullaniciid = (SELECT kullaniciid FROM public.kullanici WHERE email = @Email AND sifre = @Sifre)";
+                string query = "SELECT kullaniciid FROM public.ciftci WHERE kullaniciid = (SELECT kullaniciid FROM public.kullanici WHERE email = @Email AND sifre = @Sifre)";
                 NpgsqlCommand command = new NpgsqlCommand(query, connection);
                 command.Parameters.AddWithValue("Email", email);
                 command.Parameters.AddWithValue("Sifre", sifre);
@@ -181,6 +181,16 @@ namespace VeritabanıProje
             UserSignUp userSignUp = new UserSignUp();
             userSignUp.Show();
             this.Hide();
+        }
+
+        private void btnSignUp_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

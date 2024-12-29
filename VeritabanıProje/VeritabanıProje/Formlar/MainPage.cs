@@ -8,7 +8,7 @@ namespace VeritabanıProje.Formlar
     public partial class MainPage : Form
     {
         private readonly int KullanıcıID;
-        private readonly string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
+        private readonly string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=proje;";
 
         public MainPage(int KullanıcıID)
         {
@@ -216,5 +216,7 @@ namespace VeritabanıProje.Formlar
                 }
             }
         }
+
+       
     }
 }

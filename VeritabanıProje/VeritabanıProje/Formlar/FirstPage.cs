@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
+using VeritabanıProje.Formlar;
 
 namespace VeritabanıProje
 {
@@ -12,7 +13,7 @@ namespace VeritabanıProje
             InitializeComponent();
         }
 
-        string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
+        string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=proje;";
         NpgsqlConnection Con;
         NpgsqlCommand Cmd;
 
@@ -112,6 +113,15 @@ namespace VeritabanıProje
             UserLogIn userLogIn = new UserLogIn();
 
             userLogIn.Show();
+
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MainPage mainPage = new MainPage(1);
+
+            mainPage.Show();
 
             this.Hide();
         }

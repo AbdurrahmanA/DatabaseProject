@@ -14,7 +14,7 @@ namespace VeritabanıProje
 {
     public partial class UserSignUp : Form
     {
-        string connectionString = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
+        string connectionString = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=proje;";
         public UserSignUp()
         {
 
@@ -157,6 +157,11 @@ namespace VeritabanıProje
         }
 
         private void UserSignUp_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }
