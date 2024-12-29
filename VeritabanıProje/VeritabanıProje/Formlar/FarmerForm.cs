@@ -14,7 +14,19 @@ namespace VeritabanıProje.Formlar
         }
 
         string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
-        string query = "SELECT urunid, urunadi, kategori, miktar, depolamakosullari, ekimtarihi, hasattarihi, stokmiktari FROM depodakiurun";
+        string query = @"
+    SELECT 
+        d.depoid,
+        d.urunid,
+        u.urunadi,
+        u.kategori,
+        d.eklem_tarihi,
+        d.hasat_tarihi,
+        d.stokmiktari
+    FROM 
+        depodakiurun d
+    JOIN 
+        urun u ON d.urunid = u.urunid";
 
         private void FarmerForm_Load(object sender, EventArgs e)
         {
@@ -47,14 +59,12 @@ namespace VeritabanıProje.Formlar
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Kullanılmıyorsa bu metodu kaldırabilirsiniz
         }
 
         private void btnUrunEkle_Click(object sender, EventArgs e)
         {
             if (CurrentFarmer.CiftciID.HasValue)
             {
-                // Nullable değer kesinlikle null değilse, 'Value' özelliği ile erişilebilir.
                 FarmersPage productSale = new FarmersPage(CurrentFarmer.CiftciID.Value, CurrentFarmer.KullanıcıID);
                 this.Hide();
                 productSale.ShowDialog();

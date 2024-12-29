@@ -8,90 +8,79 @@ namespace VeritabanıProje
 {
     public partial class UserLogIn : Form
     {
-        string connectionString = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
+        private readonly string connectionString = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
 
         public UserLogIn()
         {
             InitializeComponent();
-            this.btnGiris.Click += new System.EventHandler(this.btnGiris_Click);
-            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
+            this.btnGiris.Click += btnGiris_Click;
+            this.btnSignUp.Click += btnSignUp_Click;
         }
 
         private string KullaniciTuruBelirle(string email, string sifre)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
-                string queryKullanici = "SELECT kullaniciid FROM public.kullanici WHERE email = @Email AND sifre = @Sifre";
-                NpgsqlCommand commandKullanici = new NpgsqlCommand(queryKullanici, connection);
-                commandKullanici.Parameters.AddWithValue("Email", email);
-                commandKullanici.Parameters.AddWithValue("Sifre", sifre);
+                string query = @"
+                SELECT 
+                    CASE 
+                        WHEN EXISTS (SELECT 1 FROM public.ciftci c WHERE c.kullaniciid = k.kullaniciid) THEN 'Çiftçi'
+                        ELSE 'Kullanıcı'
+                    END AS KullaniciTuru
+                FROM public.kullanici k
+                WHERE k.email = @Email AND k.sifre = @Sifre";
 
-                connection.Open();
-                object kullaniciIDObj = commandKullanici.ExecuteScalar();
-                connection.Close();
-
-                // DEBUGGING MESAJI
-                if (kullaniciIDObj != null)
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                 {
-                    MessageBox.Show($"Kullanıcı ID bulundu: {kullaniciIDObj.ToString()}", "Debug");
-                }
-                else
-                {
-                    MessageBox.Show("Kullanıcı bulunamadı.", "Debug");
-                }
-
-                if (kullaniciIDObj != null)
-                {
-                    int kullaniciID = Convert.ToInt32(kullaniciIDObj);
-
-                    string queryCiftci = "SELECT COUNT(*) FROM public.ciftci WHERE kullaniciid = @KullaniciID";
-                    NpgsqlCommand commandCiftci = new NpgsqlCommand(queryCiftci, connection);
-                    commandCiftci.Parameters.AddWithValue("KullaniciID", kullaniciID);
+                    command.Parameters.AddWithValue("Email", email);
+                    command.Parameters.AddWithValue("Sifre", sifre);
 
                     connection.Open();
-                    int ciftciCount = Convert.ToInt32(commandCiftci.ExecuteScalar());
+                    object result = command.ExecuteScalar();
                     connection.Close();
 
-                    MessageBox.Show($"Çiftçi kayıt sayısı: {ciftciCount}", "Debug");
-
-                    if (ciftciCount > 0)
-                    {
-                        return "Çiftçi"; 
-                    }
-                    else
-                    {
-                        return "Kullanıcı"; 
-                    }
+                    return result?.ToString();
                 }
-
-                return null; 
             }
         }
 
-
-
-        private int GetCiftciID(string email, string sifre)
+        private int GetKullaniciID(string email, string sifre)
         {
-            int ciftciID = 0;
-
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
-                string query = "SELECT ciftciid FROM public.ciftci WHERE kullaniciid = (SELECT kullaniciid FROM public.kullanici WHERE email = @Email AND sifre = @Sifre)";
-                NpgsqlCommand command = new NpgsqlCommand(query, connection);
-                command.Parameters.AddWithValue("Email", email);
-                command.Parameters.AddWithValue("Sifre", sifre);
+                string query = "SELECT kullaniciid FROM public.kullanici WHERE email = @Email AND sifre = @Sifre";
 
-                connection.Open();
-                object result = command.ExecuteScalar();
-                connection.Close();
-
-                if (result != null)
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                 {
-                    ciftciID = Convert.ToInt32(result);
+                    command.Parameters.AddWithValue("Email", email);
+                    command.Parameters.AddWithValue("Sifre", sifre);
+
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    connection.Close();
+
+                    return result != null ? Convert.ToInt32(result) : 0;
                 }
             }
+        }
 
-            return ciftciID;
+        private int GetCiftciID(int kullaniciID)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                string query = "SELECT kullaniciid FROM public.ciftci WHERE kullaniciid = @KullaniciID";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("KullaniciID", kullaniciID);
+
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    connection.Close();
+
+                    return result != null ? Convert.ToInt32(result) : 0;
+                }
+            }
         }
 
         private void btnGiris_Click(object sender, EventArgs e)
@@ -111,26 +100,25 @@ namespace VeritabanıProje
 
                 if (kullaniciTuru == "Çiftçi")
                 {
-                    MessageBox.Show("Çiftçi olarak giriş yapıldı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    int ciftciID = GetCiftciID(email, sifre);
                     int kullaniciID = GetKullaniciID(email, sifre);
+                    int ciftciID = GetCiftciID(kullaniciID);
 
-                    CurrentFarmer.CiftciID = ciftciID; 
-                    CurrentFarmer.KullanıcıID = kullaniciID; 
+                    CurrentFarmer.CiftciID = ciftciID;
+                    CurrentFarmer.KullanıcıID = kullaniciID;
 
+                    MessageBox.Show("Çiftçi olarak giriş yapıldı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     FarmerForm farmerForm = new FarmerForm();
                     farmerForm.Show();
                     this.Hide();
                 }
                 else if (kullaniciTuru == "Kullanıcı")
                 {
-                    MessageBox.Show("Kullanıcı olarak giriş yapıldı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     int kullaniciID = GetKullaniciID(email, sifre);
+                    CurrentUser.KullanıcıID = kullaniciID;
 
-                    CurrentUser.KullanıcıID = kullaniciID; 
-
-                    MainPage mainForm = new MainPage(kullaniciID);
-                    mainForm.Show();
+                    MessageBox.Show("Kullanıcı olarak giriş yapıldı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MainPage mainPage = new MainPage(kullaniciID);
+                    mainPage.Show();
                     this.Hide();
                 }
                 else
@@ -143,32 +131,6 @@ namespace VeritabanıProje
                 MessageBox.Show($"Giriş sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-        private int GetKullaniciID(string email, string sifre)
-        {
-            int kullaniciID = 0;
-
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
-            {
-                string query = "SELECT kullaniciid FROM public.kullanici WHERE email = @Email AND sifre = @Sifre";
-                NpgsqlCommand command = new NpgsqlCommand(query, connection);
-                command.Parameters.AddWithValue("Email", email);
-                command.Parameters.AddWithValue("Sifre", sifre);
-
-                connection.Open();
-                object result = command.ExecuteScalar();  
-                connection.Close();
-
-                if (result != null)
-                {
-                    kullaniciID = Convert.ToInt32(result);  
-                }
-            }
-
-            return kullaniciID; 
-        }
-
 
         private void UserLogIn_Load(object sender, EventArgs e)
         {

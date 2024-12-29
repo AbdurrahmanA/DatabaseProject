@@ -47,6 +47,7 @@
             // 
             // dgDatas
             // 
+            this.dgDatas.BackgroundColor = System.Drawing.Color.LightSalmon;
             this.dgDatas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgDatas.Location = new System.Drawing.Point(38, 101);
             this.dgDatas.Name = "dgDatas";
@@ -77,12 +78,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnLogIn);
             this.Controls.Add(this.btnFormGecis);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.dgDatas);
             this.Name = "FirstPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgDatas)).EndInit();
