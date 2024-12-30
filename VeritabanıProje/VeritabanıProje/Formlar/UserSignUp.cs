@@ -14,7 +14,7 @@ namespace VeritabanıProje
 {
     public partial class UserSignUp : Form
     {
-        string connectionString = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
+        string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
         public UserSignUp()
         {
 
@@ -26,7 +26,7 @@ namespace VeritabanıProje
         }
         private void KullaniciKaydet(string ad, string soyad, string email, string telefon, string sifre, decimal bakiye)
         {
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
             {
                 string query = @"
         INSERT INTO public.kullanici (ad, soyad, email, telefon, sifre, kayittarihi, bakiye)
@@ -48,7 +48,7 @@ namespace VeritabanıProje
 
         private void CiftciKaydet(string ad, string soyad, string email, string telefon, string sifre, decimal bakiye)
         {
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
             {
                 string query = @"
         INSERT INTO public.kullanici (ad, soyad, email, telefon, sifre, kayittarihi, bakiye)
@@ -96,7 +96,6 @@ namespace VeritabanıProje
                 if (string.IsNullOrWhiteSpace(ad) ||
                     string.IsNullOrWhiteSpace(soyad) ||
                     string.IsNullOrWhiteSpace(email) ||
-                    string.IsNullOrWhiteSpace(telefon) ||
                     string.IsNullOrWhiteSpace(sifre) ||
                     !decimal.TryParse(txtBakiye.Text.Trim(), out bakiye))
                 {
@@ -149,7 +148,7 @@ namespace VeritabanıProje
         private void button1_Click(object sender, EventArgs e)
         {
 
-            FirstPage firstPage = new FirstPage();
+            UserLogIn firstPage = new UserLogIn();
 
             firstPage.Show();
 
@@ -159,6 +158,30 @@ namespace VeritabanıProje
         private void UserSignUp_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            UserLogIn firstPage = new UserLogIn();
+
+            firstPage.Show();
+
+            this.Hide();
         }
     }
 }

@@ -5,9 +5,9 @@ using System.Windows.Forms;
 
 namespace VeritabanıProje
 {
-    public partial class FirstPage : Form
+    public partial class eskigirişekranı : Form
     {
-        public FirstPage()
+        public eskigirişekranı()
         {
             InitializeComponent();
         }

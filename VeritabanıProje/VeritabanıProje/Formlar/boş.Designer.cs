@@ -1,6 +1,6 @@
 ﻿namespace VeritabanıProje.Formlar
 {
-    partial class FarmerForm
+    partial class boş
     {
         /// <summary>
         /// Required designer variable.

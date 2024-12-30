@@ -16,7 +16,7 @@ namespace VeritabanıProje
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FirstPage());
+            Application.Run(new eskigirişekranı());
         }
     }
 }

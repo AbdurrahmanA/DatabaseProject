@@ -6,27 +6,15 @@ using VeritabanıProje.Class;
 
 namespace VeritabanıProje.Formlar
 {
-    public partial class FarmerForm : Form
+    public partial class boş : Form
     {
-        public FarmerForm()
+        public boş()
         {
             InitializeComponent();
         }
 
         string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
-        string query = @"
-    SELECT 
-        d.depoid,
-        d.urunid,
-        u.urunadi,
-        u.kategori,
-        d.eklem_tarihi,
-        d.hasat_tarihi,
-        d.stokmiktari
-    FROM 
-        depodakiurun d
-    JOIN 
-        urun u ON d.urunid = u.urunid";
+        string query = "SELECT depoid, urunid, ekim_tarih, stokmiktar, hasat_tarih, kullaniciid FROM depodakiurun";
 
         private void FarmerForm_Load(object sender, EventArgs e)
         {
@@ -59,13 +47,15 @@ namespace VeritabanıProje.Formlar
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Kullanılmıyorsa bu metodu kaldırabilirsiniz
         }
 
         private void btnUrunEkle_Click(object sender, EventArgs e)
         {
             if (CurrentFarmer.CiftciID.HasValue)
             {
-                FarmersPage productSale = new FarmersPage(CurrentFarmer.CiftciID.Value, CurrentFarmer.KullanıcıID);
+                // Nullable değer kesinlikle null değilse, 'Value' özelliği ile erişilebilir.
+                eskifarmerpage productSale = new eskifarmerpage(CurrentFarmer.KullanıcıID);
                 this.Hide();
                 productSale.ShowDialog();
             }

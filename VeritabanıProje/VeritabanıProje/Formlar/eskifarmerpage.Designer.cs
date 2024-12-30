@@ -1,6 +1,6 @@
 ﻿namespace VeritabanıProje.Formlar
 {
-    partial class FarmersPage
+    partial class eskifarmerpage
     {
         /// <summary>
         /// Required designer variable.
