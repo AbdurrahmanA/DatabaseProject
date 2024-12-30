@@ -46,11 +46,11 @@ namespace VeritabanıProje
             this.label7 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtTelefon = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.txtTelefon = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -65,7 +65,7 @@ namespace VeritabanıProje
             this.btnKayıt.Name = "btnKayıt";
             this.btnKayıt.Size = new System.Drawing.Size(243, 35);
             this.btnKayıt.TabIndex = 0;
-            this.btnKayıt.Text = "Sign Up";
+            this.btnKayıt.Text = "Kayıt Ol";
             this.btnKayıt.UseVisualStyleBackColor = false;
             this.btnKayıt.Click += new System.EventHandler(this.btnKayıt_Click);
             // 
@@ -207,46 +207,38 @@ namespace VeritabanıProje
             this.panel1.TabIndex = 17;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // txtTelefon
-            // 
-            this.txtTelefon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(113)))), ((int)(((byte)(83)))));
-            this.txtTelefon.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtTelefon.Location = new System.Drawing.Point(492, 496);
-            this.txtTelefon.Name = "txtTelefon";
-            this.txtTelefon.Size = new System.Drawing.Size(121, 13);
-            this.txtTelefon.TabIndex = 20;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label10.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label10.Location = new System.Drawing.Point(243, 360);
+            this.label10.Location = new System.Drawing.Point(272, 362);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(80, 16);
+            this.label10.Size = new System.Drawing.Size(62, 16);
             this.label10.TabIndex = 19;
-            this.label10.Text = "Sign In Here";
+            this.label10.Text = "Giriş Yap";
             this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(106, 360);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label9.Location = new System.Drawing.Point(137, 363);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(132, 13);
+            this.label9.Size = new System.Drawing.Size(129, 15);
             this.label9.TabIndex = 18;
-            this.label9.Text = "Already have an account?";
+            this.label9.Text = "Hesabın zaten var mı?";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F);
-            this.label8.Location = new System.Drawing.Point(178, 109);
+            this.label8.Location = new System.Drawing.Point(215, 109);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(163, 22);
+            this.label8.Size = new System.Drawing.Size(82, 22);
             this.label8.TabIndex = 17;
-            this.label8.Text = "Sign Up Account";
+            this.label8.Text = "Kayıt Ol";
             // 
             // pictureBox1
             // 
@@ -257,6 +249,15 @@ namespace VeritabanıProje
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
+            // 
+            // txtTelefon
+            // 
+            this.txtTelefon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(113)))), ((int)(((byte)(83)))));
+            this.txtTelefon.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtTelefon.Location = new System.Drawing.Point(492, 496);
+            this.txtTelefon.Name = "txtTelefon";
+            this.txtTelefon.Size = new System.Drawing.Size(121, 13);
+            this.txtTelefon.TabIndex = 20;
             // 
             // UserSignUp
             // 

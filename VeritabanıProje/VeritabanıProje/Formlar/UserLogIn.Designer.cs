@@ -58,7 +58,7 @@
             this.btnGiris.Name = "btnGiris";
             this.btnGiris.Size = new System.Drawing.Size(243, 35);
             this.btnGiris.TabIndex = 1;
-            this.btnGiris.Text = "Login";
+            this.btnGiris.Text = "Giriş Yap";
             this.btnGiris.UseVisualStyleBackColor = false;
             // 
             // txtEmail
@@ -130,31 +130,32 @@
             this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label5.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label5.Location = new System.Drawing.Point(264, 370);
+            this.label5.Location = new System.Drawing.Point(264, 368);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(88, 16);
+            this.label5.Size = new System.Drawing.Size(52, 16);
             this.label5.TabIndex = 8;
-            this.label5.Text = "Register here";
+            this.label5.Text = "Kayıt Ol";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(145, 371);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label4.Location = new System.Drawing.Point(154, 368);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(113, 13);
+            this.label4.Size = new System.Drawing.Size(104, 15);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Have no account yet?";
+            this.label4.Text = "Hesabın Yok mu?";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(187, 111);
+            this.label3.Location = new System.Drawing.Point(215, 109);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(141, 22);
+            this.label3.Size = new System.Drawing.Size(91, 22);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Login Account";
+            this.label3.Text = "Giriş Yap";
             // 
             // button1
             // 

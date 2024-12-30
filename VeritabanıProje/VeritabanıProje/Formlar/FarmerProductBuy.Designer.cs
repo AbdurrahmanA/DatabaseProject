@@ -43,6 +43,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.txtÜrünAdıArama = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.txtSaticiid = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtSatışID = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtS = new System.Windows.Forms.Label();
@@ -68,7 +72,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -288,6 +291,9 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.Controls.Add(this.txtÜrünAdıArama);
+            this.panel4.Controls.Add(this.label10);
+            this.panel4.Controls.Add(this.button4);
             this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.txtSaticiid);
             this.panel4.Controls.Add(this.txtSatışID);
@@ -310,6 +316,59 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(735, 325);
             this.panel4.TabIndex = 40;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            // 
+            // txtÜrünAdıArama
+            // 
+            this.txtÜrünAdıArama.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtÜrünAdıArama.DefaultText = "";
+            this.txtÜrünAdıArama.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtÜrünAdıArama.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtÜrünAdıArama.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtÜrünAdıArama.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtÜrünAdıArama.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtÜrünAdıArama.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtÜrünAdıArama.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtÜrünAdıArama.Location = new System.Drawing.Point(319, 15);
+            this.txtÜrünAdıArama.Name = "txtÜrünAdıArama";
+            this.txtÜrünAdıArama.PasswordChar = '\0';
+            this.txtÜrünAdıArama.PlaceholderText = "";
+            this.txtÜrünAdıArama.SelectedText = "";
+            this.txtÜrünAdıArama.Size = new System.Drawing.Size(176, 35);
+            this.txtÜrünAdıArama.TabIndex = 23;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(231, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(82, 18);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Ürün Adı:";
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(145)))), ((int)(((byte)(105)))));
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.button4.Location = new System.Drawing.Point(525, 16);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(127, 34);
+            this.button4.TabIndex = 21;
+            this.button4.Text = "Ara";
+            this.button4.UseVisualStyleBackColor = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(311, 277);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 18);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Satıcı ID:";
             // 
             // txtSaticiid
             // 
@@ -353,11 +412,11 @@
             // 
             this.txtS.AutoSize = true;
             this.txtS.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtS.Location = new System.Drawing.Point(49, 276);
+            this.txtS.Location = new System.Drawing.Point(59, 277);
             this.txtS.Name = "txtS";
-            this.txtS.Size = new System.Drawing.Size(67, 18);
+            this.txtS.Size = new System.Drawing.Size(72, 18);
             this.txtS.TabIndex = 14;
-            this.txtS.Text = "Satış ID";
+            this.txtS.Text = "Satış ID:";
             // 
             // label11
             // 
@@ -365,16 +424,16 @@
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label11.Location = new System.Drawing.Point(13, 16);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(161, 24);
+            this.label11.Size = new System.Drawing.Size(131, 24);
             this.label11.TabIndex = 2;
-            this.label11.Text = "Select Your Order";
+            this.label11.Text = "Sipariş Bilgileri";
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(145)))), ((int)(((byte)(105)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button1.Location = new System.Drawing.Point(574, 260);
+            this.button1.Location = new System.Drawing.Point(594, 268);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 34);
             this.button1.TabIndex = 13;
@@ -405,11 +464,11 @@
             // 
             this.t.AutoSize = true;
             this.t.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.t.Location = new System.Drawing.Point(388, 201);
+            this.t.Location = new System.Drawing.Point(380, 201);
             this.t.Name = "t";
-            this.t.Size = new System.Drawing.Size(109, 18);
+            this.t.Size = new System.Drawing.Size(114, 18);
             this.t.TabIndex = 11;
-            this.t.Text = "Toplam Fiyat";
+            this.t.Text = "Toplam Fiyat:";
             this.t.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BirimFiyat
@@ -435,11 +494,11 @@
             // 
             this.b.AutoSize = true;
             this.b.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.b.Location = new System.Drawing.Point(43, 201);
+            this.b.Location = new System.Drawing.Point(34, 201);
             this.b.Name = "b";
-            this.b.Size = new System.Drawing.Size(92, 18);
+            this.b.Size = new System.Drawing.Size(97, 18);
             this.b.TabIndex = 9;
-            this.b.Text = "Birim Fiyat";
+            this.b.Text = "Birim Fiyat:";
             // 
             // Miktar
             // 
@@ -464,11 +523,11 @@
             // 
             this.mm.AutoSize = true;
             this.mm.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mm.Location = new System.Drawing.Point(424, 135);
+            this.mm.Location = new System.Drawing.Point(432, 138);
             this.mm.Name = "mm";
-            this.mm.Size = new System.Drawing.Size(57, 18);
+            this.mm.Size = new System.Drawing.Size(62, 18);
             this.mm.TabIndex = 7;
-            this.mm.Text = "Miktar";
+            this.mm.Text = "Miktar:";
             // 
             // txtÜrünID
             // 
@@ -518,7 +577,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(412, 75);
+            this.label3.Location = new System.Drawing.Point(421, 75);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 18);
             this.label3.TabIndex = 2;
@@ -565,7 +624,7 @@
             this.panel5.Controls.Add(this.dataGridView3);
             this.panel5.Location = new System.Drawing.Point(919, 66);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(368, 723);
+            this.panel5.Size = new System.Drawing.Size(369, 723);
             this.panel5.TabIndex = 41;
             // 
             // button3
@@ -638,16 +697,6 @@
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(338, 394);
             this.dataGridView3.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(311, 277);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 18);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "Satıcı ID";
             // 
             // FarmerProductBuy
             // 
@@ -722,5 +771,8 @@
         private System.Windows.Forms.Label txtS;
         private Guna.UI2.WinForms.Guna2TextBox txtSaticiid;
         private System.Windows.Forms.Label label5;
+        private Guna.UI2.WinForms.Guna2TextBox txtÜrünAdıArama;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button4;
     }
 }

@@ -8,32 +8,29 @@ namespace VeritabanıProje.Formlar
 {
     public partial class UserProductBuy : Form
     {
-        private int kullanıcıID; // Kullanıcı ID
+        private int kullanıcıID; 
         string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
 
         public UserProductBuy(int kullanıcıID)
         {
             this.kullanıcıID = kullanıcıID;
             InitializeComponent();
+            txtÜrünAdıArama.TextChanged += txtÜrünAdıArama_TextChanged;
             ListeleSatistakiUrunlerForDataGridView2();
 
-            // Manually add items to cmbKategori
             cmbKategori.Items.Add("Tahıl");
             cmbKategori.Items.Add("Sebze");
             cmbKategori.Items.Add("Meyve");
             cmbKategori.Items.Add("Bakliyat");
 
-            // Initialize DataGridView3 with columns
             InitializeDataGridView3();
 
-            // Get user's balance (bakiye) when form loads
             GetBakiyeFromDatabase();
             DisableTextBoxEdits();
         }
 
         private void DisableTextBoxEdits()
         {
-            // Disable editing (make them read-only)
             txtÜrünAdı.ReadOnly = true;
             Miktar.ReadOnly = true;
             txtÜrünID.ReadOnly = true;
@@ -127,7 +124,7 @@ namespace VeritabanıProje.Formlar
                  string.IsNullOrWhiteSpace(txtSaticiid.Text))
             {
                 MessageBox.Show("Lütfen tüm alanları doldurunuz!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Stop further execution if validation fails
+                return; 
             }
 
             string urunAdi = txtÜrünAdı.Text;
@@ -245,7 +242,6 @@ namespace VeritabanıProje.Formlar
             {
                 DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
 
-                // Set the values in the textboxes
                 txtÜrünAdı.Text = row.Cells["urunadi"].Value?.ToString() ?? string.Empty;
                 Miktar.Text = row.Cells["miktar"].Value?.ToString() ?? string.Empty;
                 txtÜrünID.Text = row.Cells["urunid"].Value?.ToString() ?? string.Empty;
@@ -255,17 +251,15 @@ namespace VeritabanıProje.Formlar
                 txtSaticiid.Text = row.Cells["saticiid"].Value?.ToString() ?? string.Empty;
 
 
-                // Set the ComboBox value by finding the corresponding item in cmbKategori
                 string kategoriValue = row.Cells["kategori"].Value?.ToString() ?? string.Empty;
 
-                // Try to find the item in the ComboBox
                 if (cmbKategori.Items.Contains(kategoriValue))
                 {
                     cmbKategori.SelectedItem = kategoriValue;
                 }
                 else
                 {
-                    cmbKategori.SelectedIndex = -1; // Reset the ComboBox if the value is not found
+                    cmbKategori.SelectedIndex = -1;
                 }
             }
         }
@@ -291,6 +285,59 @@ namespace VeritabanıProje.Formlar
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void txtÜrünAdıArama_TextChanged(object sender, EventArgs e)
+        {
+            string searchTerm = txtÜrünAdıArama.Text.Trim();
+
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                ListeleSatistakiUrunlerForDataGridView2(); 
+                return;
+            }
+
+            string query = "SELECT s.satisid, s.urunid, u.urunadi, u.kategori, s.miktar, s.birimfiyat, s.toplamfiyat, s.saticiid " +
+                           "FROM satistakiurun s " +
+                           "JOIN urun u ON s.urunid = u.urunid " +
+                           "WHERE u.urunadi ILIKE @searchTerm";
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
+            {
+                try
+                {
+                    connection.Open();
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@searchTerm", searchTerm + "%"); 
+
+                        using (NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command))
+                        {
+                            DataTable dataTable = new DataTable();
+                            dataAdapter.Fill(dataTable);
+                            dataGridView2.DataSource = dataTable; 
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ürün arama sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void UserProductBuy_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
         {
 
         }

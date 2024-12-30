@@ -27,12 +27,11 @@ namespace VeritabanıProje.Formlar
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // İhtiyaç duyulursa ilgili işlemler burada yapılabilir
+           
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
-            // Panelde görsel bir işlem yapılacaksa burası kullanılabilir
         }
 
         private void guna2GradientTileButton4_Click(object sender, EventArgs e)
@@ -280,11 +279,10 @@ namespace VeritabanıProje.Formlar
 
         private void DepoyaAktar(int urunID, int miktar)
         {
-            // İlk olarak, depodaki mevcut ürünü kontrol edelim
             string checkQuery = @"
     SELECT stokmiktari 
     FROM depodakiurun 
-    WHERE urunid = @urunID AND kullaniciid = @kullaniciID"; // Kullanıcı ID'yi de ekleyelim
+    WHERE urunid = @urunID AND kullaniciid = @kullaniciID"; 
 
             using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
             {
@@ -298,12 +296,10 @@ namespace VeritabanıProje.Formlar
 
                         var result = command.ExecuteScalar();
 
-                        if (result != null) // Eğer ürün zaten depoda varsa
+                        if (result != null) 
                         {
-                            // Mevcut stok miktarını al
                             int mevcutMiktar = Convert.ToInt32(result);
 
-                            // Stok miktarını güncelle
                             string updateQuery = @"
                     UPDATE depodakiurun
                     SET stokmiktari = stokmiktari + @miktar
@@ -319,9 +315,8 @@ namespace VeritabanıProje.Formlar
                                 MessageBox.Show("Ürün depodaki mevcut miktar ile güncellendi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
-                        else // Eğer ürün depoda yoksa
+                        else 
                         {
-                            // Yeni bir ürün ekleyelim
                             string insertQuery = @"
                     INSERT INTO depodakiurun (urunid, stokmiktari, kullaniciid)
                     VALUES (@urunID, @miktar, @kullaniciID)";
@@ -350,7 +345,6 @@ namespace VeritabanıProje.Formlar
 
         private void SatistakiUrunuSil(int satisID)
         {
-            // Satıştaki ürünü silme işlemi
             string deleteQuery = "DELETE FROM satistakiurun WHERE satisid = @satisid";
 
             using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
@@ -364,7 +358,6 @@ namespace VeritabanıProje.Formlar
                         command.ExecuteNonQuery();
                         MessageBox.Show("Ürün satıştan başarıyla kaldırıldı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        // Satıştan ürün kaldırıldıktan sonra, depodaki ürünleri tekrar listele
                         ListeleDepodakiUrunler();
                     }
                 }
@@ -433,6 +426,16 @@ namespace VeritabanıProje.Formlar
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
+
+        }
+
+        private void guna2GradientTileButton3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

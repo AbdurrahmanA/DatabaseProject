@@ -16,8 +16,7 @@ namespace VeritabanıProje.Formlar
             this.kullanıcıID = kullanıcıID;
             InitializeComponent();
 
-            // Debugging line to check the kullanıcıID
-            Console.WriteLine("Kullanıcı ID: " + kullanıcıID); // This will print the user ID to the output window for debugging.
+            Console.WriteLine("Kullanıcı ID: " + kullanıcıID); // 
 
             ListeleDepodakiUrunler();
         }
@@ -37,7 +36,6 @@ namespace VeritabanıProje.Formlar
                     connection.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     {
-                        // Log the query and user ID for debugging
                         Console.WriteLine("Running query with kullanıcıID: " + kullanıcıID);
 
                         command.Parameters.AddWithValue("@kullaniciid", kullanıcıID);
@@ -46,13 +44,12 @@ namespace VeritabanıProje.Formlar
                         {
                             DataTable dataTable = new DataTable();
                             dataAdapter.Fill(dataTable);
-                            dataGridView2.DataSource = dataTable; // Populate DataGridView with fetched data
+                            dataGridView2.DataSource = dataTable; 
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Display the error message from the exception
                     MessageBox.Show($"Depodaki ürünleri listeleme sırasında bir hata oluştu:\n{ex.Message}",
                                     "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -61,17 +58,15 @@ namespace VeritabanıProje.Formlar
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string urunAdi = txtUrunAdi.Text.Trim(); // Kullanıcının girdiği ürün adı
+            string urunAdi = txtUrunAdi.Text.Trim(); 
             int stokMiktari;
 
-            // Stok miktarını al
             if (!int.TryParse(txtStokMiktari.Text.Trim(), out stokMiktari) || stokMiktari <= 0)
             {
                 MessageBox.Show("Geçerli bir stok miktarı girin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Ürün adından urunID'yi al
             int urunID = GetUrunIDByUrunAdi(urunAdi);
             if (urunID == -1)
             {
@@ -79,19 +74,15 @@ namespace VeritabanıProje.Formlar
                 return;
             }
 
-            // Depodaki ürünün mevcut olup olmadığını kontrol et
             if (IsUrunDepodaVar(urunID))
             {
-                // Eğer ürün depoda mevcutsa, stok miktarını güncelle
                 UpdateDepodakiUrun(stokMiktari, urunID);
             }
             else
             {
-                // Eğer ürün depoda mevcut değilse, yeni ürün ekle
                 AddDepodakiUrun(stokMiktari, urunID);
             }
 
-            // Depodaki ürünleri yeniden listele
             ListeleDepodakiUrunler();
         }
 
@@ -111,11 +102,11 @@ namespace VeritabanıProje.Formlar
                         var result = command.ExecuteScalar();
                         if (result != null)
                         {
-                            return Convert.ToInt32(result); // Eğer ürün bulunduysa, urunID'yi döndür
+                            return Convert.ToInt32(result); 
                         }
                         else
                         {
-                            return -1; // Eğer ürün bulunamadıysa, -1 döndür
+                            return -1; 
                         }
                     }
                 }
@@ -129,7 +120,6 @@ namespace VeritabanıProje.Formlar
 
         private bool IsUrunDepodaVar(int urunID)
         {
-            // Bu ürünün depoda olup olmadığını kontrol et
             string query = "SELECT COUNT(*) FROM depodakiurun WHERE urunid = @urunID AND kullaniciid = @kullaniciID";
 
             using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
@@ -182,7 +172,6 @@ namespace VeritabanıProje.Formlar
 
         private void UpdateDepodakiUrun(int stokMiktari, int urunID)
         {
-            // Bu ürünün mevcut stok miktarını al
             string queryGetCurrentStock = "SELECT stokmiktari FROM depodakiurun WHERE urunid = @urunID AND kullaniciid = @kullaniciID";
 
             using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
@@ -191,19 +180,16 @@ namespace VeritabanıProje.Formlar
                 {
                     connection.Open();
 
-                    // Mevcut stok miktarını al
                     using (NpgsqlCommand commandGetCurrentStock = new NpgsqlCommand(queryGetCurrentStock, connection))
                     {
                         commandGetCurrentStock.Parameters.AddWithValue("@urunID", urunID);
                         commandGetCurrentStock.Parameters.AddWithValue("@kullaniciID", kullanıcıID);
                         var currentStock = commandGetCurrentStock.ExecuteScalar();
 
-                        // Eğer mevcut stok varsa, yeni stok miktarını ekle
                         if (currentStock != null)
                         {
                             int newStock = Convert.ToInt32(currentStock) + stokMiktari;
 
-                            // Yeni stok miktarını güncelle
                             string updateQuery = "UPDATE depodakiurun SET stokmiktari = @stokMiktari WHERE urunid = @urunID AND kullaniciid = @kullaniciID";
                             using (NpgsqlCommand updateCommand = new NpgsqlCommand(updateQuery, connection))
                             {
@@ -226,22 +212,19 @@ namespace VeritabanıProje.Formlar
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // DataGridView'da bir hücre tıklandığında, seçilen satırın 'urunid' değeri 'txtÜrünID'ye aktarılır
-            if (e.RowIndex >= 0) // Satır seçildiğinden emin olun
+            if (e.RowIndex >= 0) 
             {
                 DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
-                txtUrunID.Text = row.Cells["urunid"].Value.ToString(); // 'urunid' kolonunu txtUrunID'ye aktar
+                txtUrunID.Text = row.Cells["urunid"].Value.ToString(); 
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            // Ensure the user has entered a valid product ID and quantity to reduce
             if (int.TryParse(txtUrunID.Text, out int urunID) && urunID > 0)
             {
                 if (int.TryParse(txtMiktar.Text, out int miktar) && miktar > 0)
                 {
-                    // Perform stock reduction or removal
                     ReduceOrRemoveProduct(urunID, miktar);
                 }
                 else
@@ -265,7 +248,6 @@ namespace VeritabanıProje.Formlar
                 {
                     connection.Open();
 
-                    // Get the current stock
                     using (NpgsqlCommand commandGetCurrentStock = new NpgsqlCommand(queryGetCurrentStock, connection))
                     {
                         commandGetCurrentStock.Parameters.AddWithValue("@urunID", urunID);
@@ -284,10 +266,8 @@ namespace VeritabanıProje.Formlar
                             {
                                 int newStockAmount = currentStockAmount - miktar;
 
-                                // If the new stock amount is zero, delete the product, else update the stock
                                 if (newStockAmount == 0)
                                 {
-                                    // Delete the product
                                     string deleteQuery = "DELETE FROM depodakiurun WHERE urunid = @urunID AND kullaniciid = @kullaniciID";
                                     using (NpgsqlCommand deleteCommand = new NpgsqlCommand(deleteQuery, connection))
                                     {
@@ -300,7 +280,6 @@ namespace VeritabanıProje.Formlar
                                 }
                                 else
                                 {
-                                    // Update the stock
                                     string updateQuery = "UPDATE depodakiurun SET stokmiktari = @stokMiktari WHERE urunid = @urunID AND kullaniciid = @kullaniciID";
                                     using (NpgsqlCommand updateCommand = new NpgsqlCommand(updateQuery, connection))
                                     {
@@ -363,6 +342,11 @@ namespace VeritabanıProje.Formlar
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
+
+        }
+
+        private void FarmersStorage_Load(object sender, EventArgs e)
+        {
 
         }
     }

@@ -77,7 +77,6 @@ namespace VeritabanıProje
                     return;
                 }
 
-                // Set the global user ID here
                 CurrentUser.KullanıcıID = kullaniciID;
 
                 string kullaniciTuru = KullaniciTuruBelirle(kullaniciID);
@@ -86,7 +85,7 @@ namespace VeritabanıProje
                 {
                     MessageBox.Show("Çiftçi olarak giriş yapıldı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    FarmerProductBuy farmerForm = new FarmerProductBuy(CurrentUser.KullanıcıID); // Use global user ID
+                    FarmerProductBuy farmerForm = new FarmerProductBuy(CurrentUser.KullanıcıID); 
                     farmerForm.Show();
                     this.Hide();
                 }
@@ -94,7 +93,7 @@ namespace VeritabanıProje
                 {
                     MessageBox.Show("Kullanıcı olarak giriş yapıldı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    UserProductBuy mainPage = new UserProductBuy(CurrentUser.KullanıcıID); // Use global user ID
+                    UserProductBuy mainPage = new UserProductBuy(CurrentUser.KullanıcıID); 
                     mainPage.Show();
                     this.Hide();
                 }

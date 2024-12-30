@@ -8,32 +8,30 @@ namespace VeritabanıProje.Formlar
 {
     public partial class FarmerProductBuy : Form
     {
-        private int kullanıcıID; // Kullanıcı ID
+        private int kullanıcıID; 
         string StrConnection = "Server=localhost; Port=5432; User Id=postgres; Password=123; Database=DatabaseProject;";
 
         public FarmerProductBuy(int kullanıcıID)
         {
             this.kullanıcıID = kullanıcıID;
             InitializeComponent();
+            txtÜrünAdıArama.TextChanged += txtÜrünAdıArama_TextChanged;
+
             ListeleSatistakiUrunlerForDataGridView2();
 
-            // Manually add items to cmbKategori
             cmbKategori.Items.Add("Tahıl");
             cmbKategori.Items.Add("Sebze");
             cmbKategori.Items.Add("Meyve");
             cmbKategori.Items.Add("Bakliyat");
 
-            // Initialize DataGridView3 with columns
             InitializeDataGridView3();
 
-            // Get user's balance (bakiye) when form loads
             GetBakiyeFromDatabase();
             DisableTextBoxEdits();
 
         }
         private void DisableTextBoxEdits()
         {
-            // Disable editing (make them read-only)
             txtÜrünAdı.ReadOnly = true;
             Miktar.ReadOnly = true;
             txtÜrünID.ReadOnly = true;
@@ -53,37 +51,30 @@ namespace VeritabanıProje.Formlar
                     connection.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     {
-                        // Kullanıcı ID'sini parametre olarak ekle
                         command.Parameters.AddWithValue("@kullaniciid", kullanıcıID);
 
-                        // Sorguyu çalıştır ve sonucu al
                         object result = command.ExecuteScalar();
 
                         if (result != null && result != DBNull.Value)
                         {
-                            // Gelen bakiye değerini decimal'e dönüştür ve TextBox'a yaz
                             decimal bakiye = Convert.ToDecimal(result);
-                            txtBakiye.Text = bakiye.ToString("C2"); // Para formatında gösterim
+                            txtBakiye.Text = bakiye.ToString("C2"); 
                         }
                         else
                         {
-                            // Bakiye bulunamazsa hata göster
                             MessageBox.Show("Bakiye bulunamadı. Lütfen kullanıcı ID'sini kontrol edin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Hata durumunda mesaj göster
                     MessageBox.Show($"Bakiye getirirken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        // Method to initialize columns for dataGridView3
         private void InitializeDataGridView3()
         {
-            // Manually add columns to dataGridView3
             dataGridView3.Columns.Add("urunadi", "Ürün Adı");
             dataGridView3.Columns.Add("miktar", "Miktar");
             dataGridView3.Columns.Add("urunid", "Ürün ID");
@@ -94,13 +85,12 @@ namespace VeritabanıProje.Formlar
             dataGridView3.Columns.Add("saticiid", "Satıcı ID");
         }
 
-        // Method to populate dataGridView2
         private void ListeleSatistakiUrunlerForDataGridView2()
         {
-            // SQL sorgusunu güncelle ve saticiid'yi de dahil et
-            string query = "SELECT s.satisid, s.urunid, u.urunadi, u.kategori, s.miktar, s.birimfiyat, s.toplamfiyat, s.saticiid " +
-                           "FROM satistakiurun s " +
-                           "JOIN urun u ON s.urunid = u.urunid";
+            string query = @"SELECT s.satisid, s.urunid, u.urunadi, u.kategori, s.miktar, s.birimfiyat, s.toplamfiyat, s.saticiid
+                     FROM satistakiurun s
+                     JOIN urun u ON s.urunid = u.urunid
+                     WHERE s.saticiid != @kullaniciid";
 
             using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
             {
@@ -109,11 +99,14 @@ namespace VeritabanıProje.Formlar
                     connection.Open();
                     using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                     {
+                       
+                        command.Parameters.AddWithValue("@kullaniciid", kullanıcıID);
+
                         using (NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command))
                         {
                             DataTable dataTable = new DataTable();
                             dataAdapter.Fill(dataTable);
-                            dataGridView2.DataSource = dataTable; // Veriler dataGridView2'ye atanır
+                            dataGridView2.DataSource = dataTable; 
                         }
                     }
                 }
@@ -126,7 +119,7 @@ namespace VeritabanıProje.Formlar
 
 
 
-        // Button click event to add data from textboxes to dataGridView3
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtÜrünAdı.Text) ||
@@ -139,9 +132,8 @@ namespace VeritabanıProje.Formlar
                string.IsNullOrWhiteSpace(txtSaticiid.Text))
             {
                 MessageBox.Show("Lütfen tüm alanları doldurunuz!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; // Stop further execution if validation fails
+                return; 
             }
-            // TextBox'lardan veri al
             string urunAdi = txtÜrünAdı.Text;
             string miktar = Miktar.Text;
             string urunID = txtÜrünID.Text;
@@ -149,21 +141,19 @@ namespace VeritabanıProje.Formlar
             string toplamFiyat = ToplamFiyat.Text;
             string satisID = txtSatışID.Text;
             string kategori = cmbKategori.SelectedItem?.ToString() ?? string.Empty;
-            string saticiid = txtSaticiid.Text; // txtSaticiid'deki değeri al
+            string saticiid = txtSaticiid.Text;
 
             foreach (DataGridViewRow row in dataGridView3.Rows)
             {
                 if (row.Cells["satisid"].Value != null && row.Cells["satisid"].Value.ToString() == satisID)
                 {
                     MessageBox.Show("Bu ürün zaten eklenmiş!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Eğer zaten mevcutsa, eklemeyi iptal et
+                    return; 
                 }
             }
 
-            // dataGridView3'e yeni bir satır ekle
-            int rowIndex = dataGridView3.Rows.Add(); // Yeni bir satır ekler ve satırın indeksini alır
+            int rowIndex = dataGridView3.Rows.Add(); 
 
-            // Yeni satıra verileri yaz
             dataGridView3.Rows[rowIndex].Cells["urunadi"].Value = urunAdi;
             dataGridView3.Rows[rowIndex].Cells["miktar"].Value = miktar;
             dataGridView3.Rows[rowIndex].Cells["urunid"].Value = urunID;
@@ -171,19 +161,17 @@ namespace VeritabanıProje.Formlar
             dataGridView3.Rows[rowIndex].Cells["toplamfiyat"].Value = toplamFiyat;
             dataGridView3.Rows[rowIndex].Cells["satisid"].Value = satisID;
             dataGridView3.Rows[rowIndex].Cells["kategori"].Value = kategori;
-            dataGridView3.Rows[rowIndex].Cells["saticiid"].Value = saticiid; // saticiid'yi de aktar
+            dataGridView3.Rows[rowIndex].Cells["saticiid"].Value = saticiid; 
 
-            // Call to recalculate the total price when a new row is added
             ToplamTutarHesapla();
 
-            // Formu sıfırlama
             txtSatışID.Clear();
             txtÜrünAdı.Clear();
             txtÜrünID.Clear();
             Miktar.Clear();
             BirimFiyat.Clear();
             ToplamFiyat.Clear();
-            txtSaticiid.Clear(); // txtSaticiid'yi de temizle
+            txtSaticiid.Clear(); 
         }
 
 
@@ -193,7 +181,6 @@ namespace VeritabanıProje.Formlar
             {
                 DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
 
-                // Set the values in the textboxes
                 txtÜrünAdı.Text = row.Cells["urunadi"].Value?.ToString() ?? string.Empty;
                 Miktar.Text = row.Cells["miktar"].Value?.ToString() ?? string.Empty;
                 txtÜrünID.Text = row.Cells["urunid"].Value?.ToString() ?? string.Empty;
@@ -203,51 +190,43 @@ namespace VeritabanıProje.Formlar
                 txtSaticiid.Text = row.Cells["saticiid"].Value?.ToString() ?? string.Empty;
 
 
-                // Set the ComboBox value by finding the corresponding item in cmbKategori
                 string kategoriValue = row.Cells["kategori"].Value?.ToString() ?? string.Empty;
 
-                // Try to find the item in the ComboBox
                 if (cmbKategori.Items.Contains(kategoriValue))
                 {
                     cmbKategori.SelectedItem = kategoriValue;
                 }
                 else
                 {
-                    cmbKategori.SelectedIndex = -1; // Reset the ComboBox if the value is not found
+                    cmbKategori.SelectedIndex = -1; //RESET
                 }
             }
         }
 
-        // Event triggered when a new row is added to dataGridView3
         private void DataGridView3_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            ToplamTutarHesapla(); // Her yeni satır eklendiğinde toplam tutarı hesapla
+            ToplamTutarHesapla();
         }
 
-        // Method to calculate the total of 'toplamfiyat' column in dataGridView3
         private void ToplamTutarHesapla()
         {
-            decimal toplamTutar = 0; // Toplam tutar için değişken
+            decimal toplamTutar = 0; 
 
-            // dataGridView3'teki her satır için toplamfiyat hücresini al
             foreach (DataGridViewRow row in dataGridView3.Rows)
             {
-                // Eğer satır boş değilse ve toplamfiyat hücresinin değeri sayısal ise
+                
                 if (row.Cells["toplamfiyat"].Value != null)
                 {
-                    // Veriyi 'decimal' formatında almayı deneyelim
                     if (decimal.TryParse(row.Cells["toplamfiyat"].Value.ToString(), out decimal fiyat))
                     {
-                        toplamTutar += fiyat; // Toplam tutarı güncelle
+                        toplamTutar += fiyat; 
                     }
                 }
             }
 
-            // Hesaplanan toplam tutarı txtToplamTutar TextBox'ına yaz
-            txtToplamTutar.Text = toplamTutar.ToString("C2"); // İsteğe bağlı: "C2" formatı ile para birimi olarak gösterme
+            txtToplamTutar.Text = toplamTutar.ToString("C2"); 
         }
 
-        // Inside your button3_Click event method
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -256,7 +235,7 @@ namespace VeritabanıProje.Formlar
                 try
                 {
                     connection.Open();
-                    using (var transaction = connection.BeginTransaction()) // Start a transaction
+                    using (var transaction = connection.BeginTransaction()) 
                     {
                         foreach (DataGridViewRow row in dataGridView3.Rows)
                         {
@@ -266,9 +245,8 @@ namespace VeritabanıProje.Formlar
                                 int urunID = Convert.ToInt32(row.Cells["urunid"].Value);
                                 decimal miktar = Convert.ToDecimal(row.Cells["miktar"].Value);
                                 decimal toplamFiyat = Convert.ToDecimal(row.Cells["toplamfiyat"].Value);
-                                int saticiID = Convert.ToInt32(row.Cells["saticiid"].Value); // Satıcı ID'yi alıyoruz
+                                int saticiID = Convert.ToInt32(row.Cells["saticiid"].Value); 
 
-                                // Satış işlemini gerçekleştiren prosedürü çağır
                                 using (NpgsqlCommand command = new NpgsqlCommand("CALL urun_satin_al_v2(@p_satisid, @p_urunid, @p_satilanmiktar, @p_toplamfiyat, @p_aliciid)", connection))
                                 {
                                     command.Parameters.AddWithValue("@p_satisid", satisID);
@@ -279,23 +257,22 @@ namespace VeritabanıProje.Formlar
                                     command.ExecuteNonQuery();
                                 }
 
-                                // Çiftçinin toplam kazancını güncelle
                                 using (NpgsqlCommand kazancCommand = new NpgsqlCommand("CALL guncelle_toplamkazanc(@p_kullaniciid, @p_kazanc)", connection))
                                 {
-                                    kazancCommand.Parameters.AddWithValue("@p_kullaniciid", saticiID);  // Satıcı ID'sini gönder
-                                    kazancCommand.Parameters.AddWithValue("@p_kazanc", toplamFiyat);  // Kazancı toplamFiyat kadar artır
+                                    kazancCommand.Parameters.AddWithValue("@p_kullaniciid", saticiID);  
+                                    kazancCommand.Parameters.AddWithValue("@p_kazanc", toplamFiyat);  
                                     kazancCommand.ExecuteNonQuery();
                                 }
                             }
                         }
 
-                        transaction.Commit(); // Commit the transaction
+                        transaction.Commit(); 
                     }
 
                     MessageBox.Show("Satış işlemi başarıyla tamamlandı ve çiftçi kazancı güncellendi!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ListeleSatistakiUrunlerForDataGridView2();
                     dataGridView3.Rows.Clear();
-                    txtToplamTutar.Text = "0"; // Satış sonrası toplam tutarı sıfırla
+                    txtToplamTutar.Text = "0"; 
                 }
                 catch (NpgsqlException ex)
                 {
@@ -307,6 +284,45 @@ namespace VeritabanıProje.Formlar
                 }
             }
         }
+        private void txtÜrünAdıArama_TextChanged(object sender, EventArgs e)
+        {
+            string searchTerm = txtÜrünAdıArama.Text.Trim();
+
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                ListeleSatistakiUrunlerForDataGridView2(); 
+                return;
+            }
+
+            string query = "SELECT s.satisid, s.urunid, u.urunadi, u.kategori, s.miktar, s.birimfiyat, s.toplamfiyat, s.saticiid " +
+                           "FROM satistakiurun s " +
+                           "JOIN urun u ON s.urunid = u.urunid " +
+                           "WHERE u.urunadi ILIKE @searchTerm";
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(StrConnection))
+            {
+                try
+                {
+                    connection.Open();
+                    using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@searchTerm", searchTerm + "%"); 
+
+                        using (NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command))
+                        {
+                            DataTable dataTable = new DataTable();
+                            dataAdapter.Fill(dataTable);
+                            dataGridView2.DataSource = dataTable; 
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ürün arama sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
 
 
         private void guna2GradientTileButton4_Click(object sender, EventArgs e)
@@ -362,6 +378,11 @@ namespace VeritabanıProje.Formlar
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
+
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

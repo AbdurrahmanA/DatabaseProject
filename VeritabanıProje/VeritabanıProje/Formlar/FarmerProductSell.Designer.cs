@@ -40,6 +40,7 @@
             this.guna2GradientTileButton1 = new Guna.UI2.WinForms.Guna2GradientTileButton();
             this.guna2GradientTileButton2 = new Guna.UI2.WinForms.Guna2GradientTileButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -74,6 +75,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1300, 43);
             this.panel1.TabIndex = 39;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label14
             // 
@@ -81,9 +83,9 @@
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label14.Location = new System.Drawing.Point(12, 9);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(94, 24);
+            this.label14.Size = new System.Drawing.Size(49, 24);
             this.label14.TabIndex = 2;
-            this.label14.Text = "Ana Sayfa";
+            this.label14.Text = "Satış";
             // 
             // button2
             // 
@@ -158,6 +160,7 @@
             this.guna2GradientTileButton3.Name = "guna2GradientTileButton3";
             this.guna2GradientTileButton3.Size = new System.Drawing.Size(82, 65);
             this.guna2GradientTileButton3.TabIndex = 36;
+            this.guna2GradientTileButton3.Click += new System.EventHandler(this.guna2GradientTileButton3_Click);
             // 
             // pictureBox1
             // 
@@ -242,14 +245,25 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.dataGridView1);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.dataGridView2);
-            this.panel3.Location = new System.Drawing.Point(166, 66);
+            this.panel3.Location = new System.Drawing.Point(171, 66);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1122, 403);
             this.panel3.TabIndex = 41;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label4.Location = new System.Drawing.Point(552, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(143, 24);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Satıştaki Ürünler";
             // 
             // dataGridView1
             // 
@@ -266,9 +280,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label1.Location = new System.Drawing.Point(17, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 24);
+            this.label1.Size = new System.Drawing.Size(157, 24);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Avaible Product";
+            this.label1.Text = "Depodaki Ürünler";
             // 
             // dataGridView2
             // 
@@ -294,9 +308,9 @@
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.txtDepoID);
             this.panel4.Controls.Add(this.label2);
-            this.panel4.Location = new System.Drawing.Point(166, 490);
+            this.panel4.Location = new System.Drawing.Point(171, 490);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1122, 298);
+            this.panel4.Size = new System.Drawing.Size(1117, 298);
             this.panel4.TabIndex = 42;
             // 
             // txtSatisid
@@ -322,11 +336,11 @@
             // 
             this.txtnm.AutoSize = true;
             this.txtnm.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtnm.Location = new System.Drawing.Point(56, 39);
+            this.txtnm.Location = new System.Drawing.Point(44, 39);
             this.txtnm.Name = "txtnm";
-            this.txtnm.Size = new System.Drawing.Size(71, 24);
+            this.txtnm.Size = new System.Drawing.Size(76, 24);
             this.txtnm.TabIndex = 15;
-            this.txtnm.Text = "Satis ID";
+            this.txtnm.Text = "Satis ID:";
             // 
             // txtBirimFiyat
             // 
@@ -466,11 +480,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.Location = new System.Drawing.Point(432, 129);
+            this.label2.Location = new System.Drawing.Point(427, 129);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 24);
+            this.label2.Size = new System.Drawing.Size(83, 24);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Depo ID";
+            this.label2.Text = "Depo ID:";
             // 
             // FarmerProductSell
             // 
@@ -529,5 +543,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private Guna.UI2.WinForms.Guna2TextBox txtSatisid;
         private System.Windows.Forms.Label txtnm;
+        private System.Windows.Forms.Label label4;
     }
 }

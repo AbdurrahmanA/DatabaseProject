@@ -76,7 +76,7 @@ namespace VeritabanıProje
 
                 NpgsqlCommand farmerCommand = new NpgsqlCommand(farmerQuery, connection);
                 farmerCommand.Parameters.AddWithValue("kullaniciid", kullaniciId);
-                farmerCommand.Parameters.AddWithValue("toplamkazanc", 0); // Başlangıç kazancı 0
+                farmerCommand.Parameters.AddWithValue("toplamkazanc", 0); 
 
                 farmerCommand.ExecuteNonQuery();
             }

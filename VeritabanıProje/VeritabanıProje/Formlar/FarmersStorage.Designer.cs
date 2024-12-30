@@ -77,9 +77,9 @@
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label14.Location = new System.Drawing.Point(12, 9);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(94, 24);
+            this.label14.Size = new System.Drawing.Size(56, 24);
             this.label14.TabIndex = 2;
-            this.label14.Text = "Ana Sayfa";
+            this.label14.Text = "Depo";
             // 
             // button2
             // 
@@ -240,9 +240,9 @@
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.dataGridView2);
-            this.panel3.Location = new System.Drawing.Point(166, 66);
+            this.panel3.Location = new System.Drawing.Point(171, 66);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1122, 403);
+            this.panel3.Size = new System.Drawing.Size(1117, 403);
             this.panel3.TabIndex = 40;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
@@ -277,9 +277,9 @@
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.txtUrunAdi);
             this.panel4.Controls.Add(this.label2);
-            this.panel4.Location = new System.Drawing.Point(163, 490);
+            this.panel4.Location = new System.Drawing.Point(171, 490);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1122, 298);
+            this.panel4.Size = new System.Drawing.Size(1117, 298);
             this.panel4.TabIndex = 41;
             // 
             // txtMiktar
@@ -305,11 +305,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label4.Location = new System.Drawing.Point(427, 170);
+            this.label4.Location = new System.Drawing.Point(452, 170);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 24);
+            this.label4.Size = new System.Drawing.Size(64, 24);
             this.label4.TabIndex = 14;
-            this.label4.Text = "Miktar";
+            this.label4.Text = "Miktar:";
             // 
             // txtUrunID
             // 
@@ -322,7 +322,7 @@
             this.txtUrunID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtUrunID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtUrunID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtUrunID.Location = new System.Drawing.Point(135, 170);
+            this.txtUrunID.Location = new System.Drawing.Point(155, 170);
             this.txtUrunID.Name = "txtUrunID";
             this.txtUrunID.PasswordChar = '\0';
             this.txtUrunID.PlaceholderText = "";
@@ -383,15 +383,15 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label5.Location = new System.Drawing.Point(40, 53);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(104, 24);
+            this.label5.Size = new System.Drawing.Size(109, 24);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Stok Miktarı";
+            this.label5.Text = "Stok Miktarı:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(40, 170);
+            this.label3.Location = new System.Drawing.Point(66, 170);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 24);
             this.label3.TabIndex = 4;
@@ -439,6 +439,7 @@
             this.Name = "FarmersStorage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FarmersStorage";
+            this.Load += new System.EventHandler(this.FarmersStorage_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

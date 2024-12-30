@@ -29,12 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserProductBuy));
-            this.lblKullaniciBilgi = new System.Windows.Forms.Label();
-            this.btnSatinAl = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -46,6 +43,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.txtÜrünAdıArama = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.txtSaticiid = new Guna.UI2.WinForms.Guna2TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txtSatışID = new Guna.UI2.WinForms.Guna2TextBox();
@@ -72,7 +72,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -82,24 +81,6 @@
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblKullaniciBilgi
-            // 
-            this.lblKullaniciBilgi.AutoSize = true;
-            this.lblKullaniciBilgi.Location = new System.Drawing.Point(24, 148);
-            this.lblKullaniciBilgi.Name = "lblKullaniciBilgi";
-            this.lblKullaniciBilgi.Size = new System.Drawing.Size(35, 13);
-            this.lblKullaniciBilgi.TabIndex = 1;
-            this.lblKullaniciBilgi.Text = "label1";
-            // 
-            // btnSatinAl
-            // 
-            this.btnSatinAl.Location = new System.Drawing.Point(73, 502);
-            this.btnSatinAl.Name = "btnSatinAl";
-            this.btnSatinAl.Size = new System.Drawing.Size(75, 23);
-            this.btnSatinAl.TabIndex = 2;
-            this.btnSatinAl.Text = "Satın Al";
-            this.btnSatinAl.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -136,14 +117,6 @@
             this.guna2HtmlLabel2.TabIndex = 1;
             this.guna2HtmlLabel2.Text = "Tarım Proje";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(-111, 346);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(293, 150);
-            this.dataGridView1.TabIndex = 0;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label14);
@@ -171,9 +144,6 @@
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.guna2GradientTileButton5);
             this.panel2.Controls.Add(this.guna2GradientTileButton1);
-            this.panel2.Controls.Add(this.lblKullaniciBilgi);
-            this.panel2.Controls.Add(this.btnSatinAl);
-            this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.guna2GradientTileButton2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 43);
@@ -292,6 +262,9 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.Controls.Add(this.txtÜrünAdıArama);
+            this.panel4.Controls.Add(this.label10);
+            this.panel4.Controls.Add(this.button4);
             this.panel4.Controls.Add(this.txtSaticiid);
             this.panel4.Controls.Add(this.label16);
             this.panel4.Controls.Add(this.txtSatışID);
@@ -314,6 +287,50 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(735, 325);
             this.panel4.TabIndex = 39;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            // 
+            // txtÜrünAdıArama
+            // 
+            this.txtÜrünAdıArama.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtÜrünAdıArama.DefaultText = "";
+            this.txtÜrünAdıArama.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtÜrünAdıArama.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtÜrünAdıArama.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtÜrünAdıArama.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtÜrünAdıArama.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtÜrünAdıArama.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtÜrünAdıArama.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtÜrünAdıArama.Location = new System.Drawing.Point(294, 15);
+            this.txtÜrünAdıArama.Name = "txtÜrünAdıArama";
+            this.txtÜrünAdıArama.PasswordChar = '\0';
+            this.txtÜrünAdıArama.PlaceholderText = "";
+            this.txtÜrünAdıArama.SelectedText = "";
+            this.txtÜrünAdıArama.Size = new System.Drawing.Size(176, 35);
+            this.txtÜrünAdıArama.TabIndex = 20;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(206, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(82, 18);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Ürün Adı:";
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(145)))), ((int)(((byte)(105)))));
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.button4.Location = new System.Drawing.Point(500, 16);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(127, 34);
+            this.button4.TabIndex = 18;
+            this.button4.Text = "Ara";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // txtSaticiid
             // 
@@ -326,23 +343,23 @@
             this.txtSaticiid.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSaticiid.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtSaticiid.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtSaticiid.Location = new System.Drawing.Point(393, 267);
+            this.txtSaticiid.Location = new System.Drawing.Point(391, 267);
             this.txtSaticiid.Name = "txtSaticiid";
             this.txtSaticiid.PasswordChar = '\0';
             this.txtSaticiid.PlaceholderText = "";
             this.txtSaticiid.SelectedText = "";
-            this.txtSaticiid.Size = new System.Drawing.Size(176, 35);
+            this.txtSaticiid.Size = new System.Drawing.Size(155, 35);
             this.txtSaticiid.TabIndex = 17;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(299, 274);
+            this.label16.Location = new System.Drawing.Point(311, 277);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(74, 18);
+            this.label16.Size = new System.Drawing.Size(79, 18);
             this.label16.TabIndex = 16;
-            this.label16.Text = "Satıcı ID";
+            this.label16.Text = "Satıcı ID:";
             // 
             // txtSatışID
             // 
@@ -355,23 +372,23 @@
             this.txtSatışID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSatışID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtSatışID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtSatışID.Location = new System.Drawing.Point(117, 267);
+            this.txtSatışID.Location = new System.Drawing.Point(137, 266);
             this.txtSatışID.Name = "txtSatışID";
             this.txtSatışID.PasswordChar = '\0';
             this.txtSatışID.PlaceholderText = "";
             this.txtSatışID.SelectedText = "";
-            this.txtSatışID.Size = new System.Drawing.Size(176, 35);
+            this.txtSatışID.Size = new System.Drawing.Size(155, 35);
             this.txtSatışID.TabIndex = 15;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(23, 274);
+            this.label15.Location = new System.Drawing.Point(59, 277);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(67, 18);
+            this.label15.Size = new System.Drawing.Size(72, 18);
             this.label15.TabIndex = 14;
-            this.label15.Text = "Satış ID";
+            this.label15.Text = "Satış ID:";
             // 
             // label11
             // 
@@ -379,9 +396,9 @@
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label11.Location = new System.Drawing.Point(13, 16);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(161, 24);
+            this.label11.Size = new System.Drawing.Size(151, 24);
             this.label11.TabIndex = 2;
-            this.label11.Text = "Select Your Order";
+            this.label11.Text = "Siparişinizi Seçin";
             // 
             // button1
             // 
@@ -407,7 +424,7 @@
             this.ToplamFiyat.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ToplamFiyat.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ToplamFiyat.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.ToplamFiyat.Location = new System.Drawing.Point(491, 194);
+            this.ToplamFiyat.Location = new System.Drawing.Point(500, 194);
             this.ToplamFiyat.Name = "ToplamFiyat";
             this.ToplamFiyat.PasswordChar = '\0';
             this.ToplamFiyat.PlaceholderText = "";
@@ -419,11 +436,11 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(379, 201);
+            this.label6.Location = new System.Drawing.Point(380, 201);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(109, 18);
+            this.label6.Size = new System.Drawing.Size(114, 18);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Toplam Fiyat";
+            this.label6.Text = "Toplam Fiyat:";
             // 
             // BirimFiyat
             // 
@@ -448,11 +465,11 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(43, 201);
+            this.label7.Location = new System.Drawing.Point(34, 201);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(92, 18);
+            this.label7.Size = new System.Drawing.Size(97, 18);
             this.label7.TabIndex = 9;
-            this.label7.Text = "Birim Fiyat";
+            this.label7.Text = "Birim Fiyat:";
             // 
             // Miktar
             // 
@@ -465,7 +482,7 @@
             this.Miktar.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.Miktar.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Miktar.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Miktar.Location = new System.Drawing.Point(491, 131);
+            this.Miktar.Location = new System.Drawing.Point(500, 131);
             this.Miktar.Name = "Miktar";
             this.Miktar.PasswordChar = '\0';
             this.Miktar.PlaceholderText = "";
@@ -477,11 +494,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(397, 135);
+            this.label5.Location = new System.Drawing.Point(432, 138);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 18);
+            this.label5.Size = new System.Drawing.Size(62, 18);
             this.label5.TabIndex = 7;
-            this.label5.Text = "Miktar";
+            this.label5.Text = "Miktar:";
             // 
             // txtÜrünID
             // 
@@ -494,7 +511,7 @@
             this.txtÜrünID.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtÜrünID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtÜrünID.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtÜrünID.Location = new System.Drawing.Point(491, 68);
+            this.txtÜrünID.Location = new System.Drawing.Point(500, 68);
             this.txtÜrünID.Name = "txtÜrünID";
             this.txtÜrünID.PasswordChar = '\0';
             this.txtÜrünID.PlaceholderText = "";
@@ -531,7 +548,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(385, 75);
+            this.label3.Location = new System.Drawing.Point(421, 75);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 18);
             this.label3.TabIndex = 2;
@@ -664,12 +681,12 @@
             this.Controls.Add(this.panel5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "UserProductBuy";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainPage";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.UserProductBuy_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -684,15 +701,12 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label lblKullaniciBilgi;
-        private System.Windows.Forms.Button btnSatinAl;
         private System.Windows.Forms.Button button2;
         private Guna.UI2.WinForms.Guna2GradientTileButton guna2GradientTileButton1;
         private Guna.UI2.WinForms.Guna2GradientTileButton guna2GradientTileButton5;
         private Guna.UI2.WinForms.Guna2GradientTileButton guna2GradientTileButton2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
@@ -727,5 +741,8 @@
         private System.Windows.Forms.Label label16;
         private Guna.UI2.WinForms.Guna2TextBox txtSatışID;
         private System.Windows.Forms.Label label15;
+        private Guna.UI2.WinForms.Guna2TextBox txtÜrünAdıArama;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button4;
     }
 }
